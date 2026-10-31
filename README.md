@@ -150,4 +150,4 @@ See [the comparison guide](docs/COMPARISON.md) for provider-native keys, custom 
 
 ## License
 
-This repository is `UNLICENSED`. No permission to copy, modify, or redistribute the software is granted unless separately authorized by the owner.
+Licensed under the [Apache License 2.0](LICENSE).

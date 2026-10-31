@@ -1,10 +1,10 @@
 {
   "name": "mola-ledger",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Monitor AI-agent actions, suppress duplicates, and investigate uncertain outcomes locally",
   "type": "module",
   "main": "./src/index.mjs",
-  "license": "UNLICENSED",
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zaiderikat/Mola-Ledger.git"
@@ -36,7 +36,7 @@
   "bin": {
     "mola-ledger": "cli.mjs"
   },
-  "files": ["cli.mjs", "src/", "server/", "studio/", "integrations/", "examples/", "docs/", "README.md", "SECURITY.md"],
+  "files": ["cli.mjs", "src/", "server/", "studio/", "integrations/", "examples/", "docs/", "README.md", "SECURITY.md", "LICENSE"],
   "scripts": {
     "test": "node --test test/*.test.mjs",
     "test:types": "tsc -p test/tsconfig.json",
