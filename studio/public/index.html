@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Mola Ledger Studio</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <a class="brand" href="#overview" aria-label="Mola Ledger Studio">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span><strong>Mola Ledger</strong><small>Studio</small></span>
+      </a>
+      <nav aria-label="Studio sections">
+        <button class="nav-item active" data-view="overview"><span>01</span>Overview</button>
+        <button class="nav-item" data-view="actions"><span>02</span>Action explorer</button>
+        <button class="nav-item" data-view="investigate"><span>03</span>Investigation</button>
+      </nav>
+      <div class="sidebar-foot">
+        <span class="eyebrow">Local database</span>
+        <code id="database-path">Connecting…</code>
+        <span class="privacy-note">Loopback only · read-only UI</span>
+      </div>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <div>
+          <span class="live-dot" aria-hidden="true"></span>
+          <span id="connection-label">Live ledger</span>
+        </div>
+        <div class="topbar-actions">
+          <span id="last-updated">Not refreshed</span>
+          <button id="refresh-button" class="quiet-button">Refresh</button>
+        </div>
+      </header>
+
+      <main>
+        <section class="view active" id="view-overview" aria-labelledby="overview-title">
+          <div class="section-heading">
+            <div><span class="eyebrow">System state</span><h1 id="overview-title">Operations overview</h1></div>
+            <p>Every protected call, its decision, and the evidence that followed.</p>
+          </div>
+
+          <div class="metric-ribbon" aria-label="Ledger metrics">
+            <div><span>Total attempts</span><strong id="metric-attempts">—</strong></div>
+            <div><span>Unique operations</span><strong id="metric-operations">—</strong></div>
+            <div><span>Confirmed</span><strong id="metric-succeeded">—</strong></div>
+            <div><span>Suppressed</span><strong id="metric-suppressed">—</strong></div>
+            <div><span>Unknown</span><strong id="metric-unknown">—</strong></div>
+            <div><span>In progress</span><strong id="metric-progress">—</strong></div>
+          </div>
+
+          <div class="trend-section">
+            <div class="subheading"><div><h2>Attempt volume</h2><p>Protected calls and suppression decisions over the last 24 hours.</p></div><div class="legend"><span><i class="legend-attempt"></i>Attempts</span><span><i class="legend-suppressed"></i>Suppressed</span></div></div>
+            <div id="trend-chart" class="trend-chart" role="img" aria-label="Attempt activity over time"></div>
+          </div>
+
+          <div class="overview-columns">
+            <section>
+              <div class="subheading"><div><h2>Recent activity</h2><p>The latest durable state transitions.</p></div><button class="text-button" data-jump="actions">Explore all</button></div>
+              <ol id="activity-list" class="activity-list"></ol>
+            </section>
+            <section class="attention-section">
+              <div class="subheading"><div><h2>Needs investigation</h2><p>Uncertain outcomes remain blocked until positively verified.</p></div><button class="text-button" data-jump="investigate">Open queue</button></div>
+              <div id="attention-list" class="attention-list"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="view-actions" aria-labelledby="actions-title">
+          <div class="section-heading compact">
+            <div><span class="eyebrow">Recorded operations</span><h1 id="actions-title">Action explorer</h1></div>
+            <p>Search intent, inspect decisions, and follow the full event trail.</p>
+          </div>
+          <form id="filters" class="filters">
+            <label class="search-field"><span>Search</span><input id="filter-query" type="search" placeholder="Operation ID or action"></label>
+            <label><span>Status</span><select id="filter-status"><option value="">All statuses</option><option>SUCCEEDED</option><option>IN_PROGRESS</option><option>UNKNOWN</option></select></label>
+            <label><span>Action</span><input id="filter-action" type="text" placeholder="Exact action name"></label>
+            <button class="primary-button" type="submit">Apply filters</button>
+          </form>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Operation</th><th>Action</th><th>Status</th><th>Attempts</th><th>Created</th><th>Updated</th></tr></thead>
+              <tbody id="operations-body"></tbody>
+            </table>
+            <div id="operations-empty" class="empty-state hidden"><strong>No matching operations</strong><span>Try broadening the current filters.</span></div>
+          </div>
+          <div class="pagination"><span id="page-summary">—</span><div><button id="previous-page" class="quiet-button">Previous</button><button id="next-page" class="quiet-button">Next</button></div></div>
+        </section>
+
+        <section class="view" id="view-investigate" aria-labelledby="investigate-title">
+          <div class="section-heading compact">
+            <div><span class="eyebrow">Uncertain outcomes</span><h1 id="investigate-title">Investigation center</h1></div>
+            <p>Review evidence here. Reconciliation remains controlled by application code.</p>
+          </div>
+          <div class="safety-line"><strong>No blind retries.</strong><span>A missing provider record does not prove an action never happened.</span></div>
+          <div id="investigation-list" class="investigation-list"></div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div id="drawer-backdrop" class="drawer-backdrop" hidden></div>
+  <aside id="detail-drawer" class="detail-drawer" aria-hidden="true" aria-labelledby="detail-title">
+    <button id="close-drawer" class="drawer-close" aria-label="Close operation details">×</button>
+    <div id="detail-content"></div>
+  </aside>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

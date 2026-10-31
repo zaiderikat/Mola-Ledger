@@ -1,0 +1,14 @@
+node_modules/
+.env
+.env.*
+!.env.example
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.tgz
+coverage/
+.DS_Store
+.idea/
+.mola-ledger/
+.simulation/
+data/

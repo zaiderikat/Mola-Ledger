@@ -1,0 +1,68 @@
+{
+  "name": "mola-ledger",
+  "version": "0.2.0",
+  "description": "Monitor AI-agent actions, suppress duplicates, and investigate uncertain outcomes locally",
+  "type": "module",
+  "main": "./src/index.mjs",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zaiderikat/Mola-Ledger.git"
+  },
+  "homepage": "https://github.com/zaiderikat/Mola-Ledger#readme",
+  "bugs": {
+    "url": "https://github.com/zaiderikat/Mola-Ledger/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "engines": { "node": ">=22.16.0" },
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "default": "./src/index.mjs"
+    },
+    "./github-issues": {
+      "types": "./integrations/github-issues.d.ts",
+      "default": "./integrations/github-issues.mjs"
+    },
+    "./studio": {
+      "types": "./studio/server.d.ts",
+      "default": "./studio/server.mjs"
+    }
+  },
+  "types": "./src/index.d.ts",
+  "bin": {
+    "mola-ledger": "cli.mjs"
+  },
+  "files": ["cli.mjs", "src/", "server/", "studio/", "integrations/", "examples/", "docs/", "README.md", "SECURITY.md"],
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "test:types": "tsc -p test/tsconfig.json",
+    "test:live:github": "node --test live-test/github-issues.live.test.mjs",
+    "demo:quickstart": "node examples/quickstart.mjs",
+    "demo": "node examples/refund-demo.mjs",
+    "demo:failures": "node examples/failure-demos.mjs",
+    "demo:github": "node examples/github-issue.mjs",
+    "studio": "node cli.mjs studio",
+    "dev:server": "node server/cli.mjs",
+    "pack:check": "npm pack --dry-run",
+    "prepublishOnly": "npm test && npm run test:types"
+  },
+  "devDependencies": {
+    "@openai/agents": "0.21.0",
+    "@types/node": "26.6.6",
+    "typescript": "7.0.2",
+    "zod": "4.6.7"
+  },
+  "peerDependencies": {
+    "@openai/agents": ">=0.21.0 <1",
+    "zod": "^4.6.7"
+  },
+  "peerDependenciesMeta": {
+    "@openai/agents": { "optional": true },
+    "zod": { "optional": true }
+  },
+  "keywords": ["ai-agent", "idempotency", "reconciliation", "reliability", "ledger", "sqlite", "observability", "mcp"]
+}

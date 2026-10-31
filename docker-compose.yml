@@ -1,0 +1,13 @@
+services:
+  ledger:
+    build: .
+    ports:
+      - "127.0.0.1:8787:8787"
+    environment:
+      MOLA_LEDGER_API_KEY: ${MOLA_LEDGER_API_KEY:?Set MOLA_LEDGER_API_KEY before docker compose up}
+      MOLA_LEDGER_IN_FLIGHT_TIMEOUT_MS: "60000"
+    volumes:
+      - ledger_data:/data
+    restart: unless-stopped
+volumes:
+  ledger_data:
